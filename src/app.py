@@ -11,7 +11,11 @@ def get_todos():
     if not todos:
         return '<h2>You have 0 tasks</h2>'
     else:
-        return jsonify(todos), 200
+        generate_li = lambda task: '<li>' + task['label'] + '</li>'
+        todos_li_list = list(map(generate_li, todos))
+        todos_li_html = ''.join(todos_li_list)
+        # return jsonify(todos)
+        return '<h2>You have ' + str(len(todos))+ ' tasks:</h2><ul>' + todos_li_html + '</ul>'
 
 @app.route('/todos', methods=['POST'])
 def add_new_todo():
